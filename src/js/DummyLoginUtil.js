@@ -1,5 +1,7 @@
 /**
  * Created by Sihao on 2016/4/26.
+ * TODO: didn't handle localStorage exceptions(setItem() exception when localStorage is full)
+ * TODO: Add Callback functions
  */
 
             var DummyLoginUtil =
@@ -17,22 +19,28 @@
             DummyLoginUtil.prototype.validateUser = function(un,pw)
             {
                 if (!localStorage.eviveUsers) return alert("Login Failed!");
-                console.log("Hi!");
-                for (var i = 0; i < window.localStorage.eviveUsers.length; ++i)
+
+                var users = JSON.parse(localStorage.eviveUsers);
+
+                for (var i = 0; i < users.length; ++i)
                 {
-                    if (localStorage.eviveUsers[i].username == un)
+                    if (users[i].username === un)
                     {
-                        if (localStorage.eviveUsers[i].password == pw) return alert("Login Success!");
+                        if (users[i].password === pw) return alert("Login Success!");
                     }
                 }
                 return alert("Login Failed!");
             };
 
-            DummyLoginUtil.prototype.registerUser =  function (User) {
+            DummyLoginUtil.prototype.registerUser =  function (newUser) {
                 if (!localStorage.eviveUsers)
-                    localStorage.setItem("eviveUsers", [User]);
+                    localStorage.setItem("eviveUsers", JSON.stringify([User]));
                 else
-                    localStorage.eviveUsers.push(User);
+                {
+                    var users = JSON.parse(localStorage.eviveUsers);
+                    users.push(newUser);
+                    localStorage.setItem("eviveUsers", JSON.stringify(users));
+                }
             };
 
             /**
@@ -40,7 +48,7 @@
             */
             DummyLoginUtil.prototype.resetUserInfo = function()  {
                 var admin = new EviveUser("admin", "cs465","schen149@illinois.edu", "1404 Siebel Center" );
-                localStorage.setItem("eviveUsers", [admin]);
+                localStorage.setItem("eviveUsers", JSON.stringify([admin]));
             };
 
             /**
