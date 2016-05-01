@@ -46,8 +46,8 @@
       <file leaf-file-name="myaccount.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myaccount.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55916476">
-              <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.8677494">
+              <caret line="50" column="60" selection-start-line="50" selection-start-column="60" selection-end-line="50" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -131,8 +131,8 @@
         <option value="$PROJECT_DIR$/src/login.html" />
         <option value="$PROJECT_DIR$/src/js/DummyLoginUtil.js" />
         <option value="$PROJECT_DIR$/src/js/login.js" />
-        <option value="$PROJECT_DIR$/src/myaccount.html" />
         <option value="$PROJECT_DIR$/src/css/navigation.css" />
+        <option value="$PROJECT_DIR$/src/myaccount.html" />
       </list>
     </option>
   </component>
@@ -539,12 +539,12 @@
       <workItem from="1461798585648" duration="7316000" />
       <workItem from="1461951791691" duration="681000" />
       <workItem from="1461977483561" duration="4941000" />
-      <workItem from="1462066292009" duration="102000" />
+      <workItem from="1462066292009" duration="324000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32395000" />
+    <option name="totallyTimeSpent" value="32617000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="0" />
@@ -960,8 +960,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myaccount.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55916476">
-          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.8677494">
+          <caret line="50" column="60" selection-start-line="50" selection-start-column="60" selection-end-line="50" selection-end-column="60" />
           <folding />
         </state>
       </provider>
