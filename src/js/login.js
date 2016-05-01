@@ -3,7 +3,7 @@ var DummyLoginUtil = new DummyLoginUtil();
 
 (function(){
     DummyLoginUtil.resetUserInfo(); // Debugger
-    console.log(localStorage.eviveUsers[0]);
+
 
 
     document.getElementById("login-btn").onclick = function(){

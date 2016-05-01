@@ -1,0 +1,16 @@
+.navbar{
+    border-radius: 0;
+    padding-left: 20px;
+    padding-right: 50px;
+}
+.navbar li
+{
+    margin-left: 20px;
+}
+
+.dropdown li
+{
+    margin-left: auto;
+}
+
+

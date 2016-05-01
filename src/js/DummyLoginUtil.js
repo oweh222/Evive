@@ -32,7 +32,7 @@
                 return alert("Login Failed!");
             };
 
-            DummyLoginUtil.prototype.registerUser =  function (newUser) {
+            DummyLoginUtil.prototype.registerUser = function (newUser) {
                 if (!localStorage.eviveUsers)
                     localStorage.setItem("eviveUsers", JSON.stringify([User]));
                 else
