@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <title>Device Condition - Evive</title>
+=======
+    <title>Device Type - Evive</title>
+>>>>>>> origin/master
     <meta name="description" content="Device Condition - Evive">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
 
@@ -263,7 +267,7 @@
         $("#deviceConditionSubmit").click(function () {
             localStorage.deviceCondition = $('#slider').slider("option", "value");
             localStorage.deviceConditionNote = $("#deviceConditionNote").val();
-            window.location.href = "evive_device_location.html";
+            goto("evive_device_location.html");
         });
     }
 </script>

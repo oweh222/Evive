@@ -31,13 +31,21 @@
     <ul class = "nav navbar-nav navbar-right">
         <li><a href = "#">About</a></li>
         <li class = "dropdown">
-            <a href="" class="dropdown-toggle" data-toggle="dropdown">Give<b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Give<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="myaccount.html">My Account</a></li>
-                <li><a href="evive_device_type.html">Summit Device</a></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
             </ul>
         </li>
-        <li><a href = "evive_device_type.html">Get</a></li>
+        <li class = "dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+            </ul>
+        </li>
     </ul>
 </nav>
 
@@ -131,7 +139,7 @@
         <div class="row">
             <div class="col-xs-10">
                 <div class="row">
-                    <h6>We found 1 Evive drop-off near Champaign, Illinois, USA!</h6>
+                    <h6>Please sign in or register so that you can manage your listing later</h6>
                 </div>
             </div>
         </div>
@@ -140,7 +148,7 @@
                 <div class="map-container" id="map"></div>
             </div>
             <div class="col-xs-5">
-                <a href="#" class="btn btn-block btn-lg btn-primary" name="deviceLocations" id="deviceDonate">Donate</a>
+                <a href="#" class="btn btn-block btn-lg btn-default disabled" name="deviceLocations" id="deviceDonate">Donate</a>
                 <div class="pg-evive-detail"><p>
                     Location<br/>
                     <small>
@@ -150,11 +158,13 @@
                     </small>
                 </p></div>
 
-                <a href="#" class="btn btn-block btn-lg btn-primary" name="deviceLocations" id="deviceList">List on Evive</a>
                 <div class="pg-evive-detail"><p>
+                    How to donate the device<br/>
                     <small>
-                        List on Evive online so that people can see the listing in the "Get" section.<br/>
-                        They can contact you directly to make an exchange.<br/>
+                        Goto the location above<br/>
+                        Ask the staff to analyze the device<br/>
+                        (May be qualified for a Gift Card!)<br/>
+                        The staff will take care of the device<br/>
                     </small>
                 </p></div>
             </div>
@@ -172,16 +182,12 @@
 <script src="js/login.js"></script>
 <script src="js/evive-device.js"></script>
 <script>
-    setNavigation("deviceLocation");
+    setNavigation("deviceUser");
 
     setOnClick();
 
     function setOnClick() {
-        $("#deviceDonate").click(function () {
-            goto("evive_device_donate.html");
-        });
-
-        $("#deviceList").click(function () {
+        $("[name='deviceLocations']").click(function () {
             localStorage.deviceLocation = this.id;
             goto("evive_device_user.html");
         });

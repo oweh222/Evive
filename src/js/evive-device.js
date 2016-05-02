@@ -38,43 +38,47 @@ jQuery('img.svg').each(function(){
 
 });
 
+function goto(url){
+    window.location.href = url;
+}
+
 function setNavigation(stage) {
     $("[name='deviceNavigations']").addClass("button-icon-disabled");
 
     var $nav_deviceType = $("#nav_deviceType");
-    $nav_deviceType.click(function (){ window.location.href="evive_device_type.html"; });
     $nav_deviceType.removeClass("button-icon-disabled");
-    if (stage == "deviceType") return;
+    if (stage == "deviceType") {$nav_deviceType.addClass("button-icon-current"); return; }
+    $nav_deviceType.click(function (){ goto("evive_device_type.html"); });
     $nav_deviceType.addClass("button-icon-selected");
 
     var $nav_deviceBrand = $("#nav_deviceBrand");
-    $nav_deviceBrand.click(function (){ window.location.href="evive_device_type.html"; });
     $nav_deviceBrand.removeClass("button-icon-disabled");
-    if (stage == "deviceBrand") return;
+    if (stage == "deviceBrand") {$nav_deviceBrand.addClass("button-icon-current"); return; }
+    $nav_deviceBrand.click(function (){ goto("evive_device_type.html"); });
     $nav_deviceBrand.addClass("button-icon-selected");
 
     var $nav_deviceModel = $("#nav_deviceModel");
-    $nav_deviceModel.click(function (){ window.location.href="evive_device_type.html"; });
     $nav_deviceModel.removeClass("button-icon-disabled");
-    if (stage == "deviceModel") return;
+    if (stage == "deviceModel") {$nav_deviceModel.addClass("button-icon-current"); return; }
+    $nav_deviceModel.click(function (){ goto("evive_device_type.html"); });
     $nav_deviceModel.addClass("button-icon-selected");
 
     var $nav_deviceCondition = $("#nav_deviceCondition");
-    $nav_deviceCondition.click(function (){ window.location.href="evive_device_condition.html"; });
     $nav_deviceCondition.removeClass("button-icon-disabled");
-    if (stage == "deviceCondition") return;
+    if (stage == "deviceCondition") {$nav_deviceCondition.addClass("button-icon-current"); return; }
+    $nav_deviceCondition.click(function (){ goto("evive_device_condition.html"); });
     $nav_deviceCondition.addClass("button-icon-selected");
 
     var $nav_deviceLocation = $("#nav_deviceLocation");
-    $nav_deviceLocation.click(function (){ window.location.href="evive_device_location.html"; });
     $nav_deviceLocation.removeClass("button-icon-disabled");
-    if (stage == "deviceLocation") return;
+    if (stage == "deviceLocation") {$nav_deviceLocation.addClass("button-icon-current"); return; }
+    $nav_deviceLocation.click(function (){ goto("evive_device_location.html"); });
     $nav_deviceLocation.addClass("button-icon-selected");
 
     var $nav_deviceUser = $("#nav_deviceUser");
-    $nav_deviceUser.click(function (){ window.location.href="evive_device_user.html"; });
     $nav_deviceUser.removeClass("button-icon-disabled");
-    if (stage == "deviceUser") return;
+    if (stage == "deviceUser") {$nav_deviceUser.addClass("button-icon-current"); return; }
+    $nav_deviceUser.click(function (){ goto("evive_device_user.html"); });
     $nav_deviceUser.addClass("button-icon-selected");
 }
 
