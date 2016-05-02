@@ -30,8 +30,8 @@
     </div>
     <ul class = "nav navbar-nav navbar-right">
         <li><a href = "about.html">About</a></li>
-        <li><a href = "evive_device_type.html">Give</a></li>
-        <li><a href = "evive_device_type.html">Get</a></li>
+        <li><a href = "evive_device_type.html?eviveType=give">Give</a></li>
+        <li><a href = "evive_device_type.html?eviveType=get">Get</a></li>
         <li><a href = "login.html">My Account</a></li>
     </ul>
 </nav>
@@ -127,13 +127,58 @@
         <div class="row">
             <div class="col-xs-10">
                 <div class="row">
-                    <h6>Please sign in or register so that you can manage your listing later</h6>
+                    <h6 id="textTips">Please sign in or register so that you can manage your listing later</h6>
                 </div>
             </div>
         </div>
         <div class="row row-flex">
             <div class="col-xs-4">
-
+                <div class="row login-form" name="accountColumn" id="loginForm">
+                    <div class="form-group" id="loginUsernameGroup">
+                        <input type="text" class="form-control login-field" value="" placeholder="Enter your Username" id="loginUsername">
+                    </div>
+                    <div class="form-group" id="loginPasswordGroup">
+                        <input type="password" class="form-control login-field" value="" placeholder="Password" id="loginPassword">
+                    </div>
+                    <a class="btn btn-primary btn-lg btn-block" id="loginSubmit">Log in / Register</a>
+                    <a class="login-link" id="loginLostPassword" href="">Lost your password?</a>
+                </div>
+                <div class="row login-form" name="accountColumn" id="contactForm">
+                    <div class="form-group">
+                        <p>
+                            <small>Email<br/></small>
+                            cs465group4@illinois.edu
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" value="" placeholder="Nickname" id="contactNickname">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" value="" placeholder="Mobile phone number" id="contactMobile">
+                    </div>
+                    <a class="btn btn-primary btn-lg btn-block" id="contactSubmit">Submit Listing</a>
+                </div>
+                <div class="row login-form" name="accountColumn" id="accountInfo">
+                    <div class="form-group">
+                        <p>
+                            <small>Email<br/></small>
+                            cs465group4@illinois.edu
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <small>Nickname<br/></small>
+                            Group 4
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <small>Mobile phone number<br/></small>
+                            888-888-8888
+                        </p>
+                    </div>
+                    <a href="myaccount.html" class="btn btn-primary btn-lg btn-block" id="accountGoto">Goto My Account</a>
+                </div>
             </div>
             <div class="col-xs-8">
                 <p>
@@ -159,17 +204,60 @@
 <script src="js/plugins.js"></script>
 <script src="js/evive-device.js"></script>
 <script src="js/DummyLoginUtil.js"></script>
-<script src="js/login.js"></script>
 
 <script>
+    var DummyLoginUtil = new DummyLoginUtil();
+
     setNavigation("deviceUser");
 
+    setVisual('');
     setOnClick();
+
+    function setVisual(stage) {
+        $("[name='accountColumn']").hide();
+
+        if (!localStorage.eviveCurUser) {
+            $("#loginForm").show();
+            return;
+        }
+
+        if (stage != 'accountInfo') {
+            $("#textTips").text("And finally, please update your contact information");
+            $("#contactNickname").val(localStorage.eviveCurNickname);
+            $("#contactMobile").val(localStorage.eviveCurMobile);
+            $("#contactForm").show();
+            return;
+        }
+
+        $("#textTips").text("Your have successfully posted a listing on Evive!");
+        $("#accountInfo").show();
+    }
 
     function setOnClick() {
         $("[name='deviceLocations']").click(function () {
             localStorage.deviceLocation = this.id;
             goto("evive_device_user.html");
+        });
+
+        $("#loginSubmit").click(function() {
+            var username = document.getElementById("loginUsername").value;
+            var password = document.getElementById("loginPassword").value;
+            if (DummyLoginUtil.validateUser(username, password)) {
+                setVisual('');
+            }
+            else {
+                $("#loginUsernameGroup").addClass("has-error");
+                $("#loginPasswordGroup").addClass("has-error");
+            }
+        });
+
+        $("#loginLostPassword").click(function() {
+            DummyLoginUtil.resetUserInfo();
+            return alert("An email was sent to your email address, follow the instruction to reset your password.");
+        });
+
+        $("#contactSubmit").click(function() {
+            setVisual('accountInfo');
         });
     }
 </script>

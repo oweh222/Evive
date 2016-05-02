@@ -6,8 +6,10 @@ var DummyLoginUtil = new DummyLoginUtil();
     document.getElementById("login-btn").onclick = function(){
         var username = document.getElementById("login-name").value;
         var password = document.getElementById("login-pw").value;
-        DummyLoginUtil.validateUser(username, password);
-
+        if (DummyLoginUtil.validateUser(username, password))
+            window.location.href = "myaccount.html";
+        else
+            alert("Login Failed!");
     };
 
     document.getElementById("reset-user").onclick = function(){

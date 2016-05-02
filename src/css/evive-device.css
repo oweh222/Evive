@@ -18,6 +18,11 @@
     padding-right: 0px;
 }
 
+.no-padding-vertical {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .pg-evive-detail {
     padding-left: 10px;
     padding-right: 10px;
@@ -101,4 +106,7 @@
 
 .color-normal {
     color: #34495E;
+}
+
+.login-form {
 }
