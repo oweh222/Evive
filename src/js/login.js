@@ -2,9 +2,6 @@
 var DummyLoginUtil = new DummyLoginUtil();
 
 (function(){
-    DummyLoginUtil.resetUserInfo(); // Debugger
-
-
 
     document.getElementById("login-btn").onclick = function(){
         var username = document.getElementById("login-name").value;

@@ -26,7 +26,10 @@
                 {
                     if (users[i].username === un)
                     {
-                        if (users[i].password === pw) return alert("Login Success!");
+                        if (users[i].password === pw)
+                        {
+                            return this.logOnUser(un, users[i].email);
+                        }
                     }
                 }
                 return alert("Login Failed!");
@@ -54,12 +57,15 @@
             /**
             * Log On and Log Out Operations
             */
-            DummyLoginUtil.prototype.logOnUser = function (username) {
+            DummyLoginUtil.prototype.logOnUser = function (username, email) {
                 localStorage.eviveCurUser = username;
+                localStorage.eviveCurEmail = email;
+                window.location = "myaccount.html";
             };
 
             DummyLoginUtil.prototype.logOutUser =  function() {
-                delete localStorage.eviveCurUser;
+                localStorage.removeItem("eviveCurUser");
+                localStorage.removeItem("eviveCurEmail");
             };
 
 
