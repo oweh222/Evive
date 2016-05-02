@@ -19,3 +19,11 @@ body{
     margin-top: 20px;
 
 }
+
+.about-qa
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left:40px;
+    border-bottom: 2px solid #cecece;
+}
