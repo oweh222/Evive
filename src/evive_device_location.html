@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Device Type - Evive</title>
-    <meta name="description" content="Device Type - Evive">
+    <meta name="description" content="Device Location - Evive">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -143,6 +143,30 @@
                 </div>
             </div>
         </div>
+        <div class="row row-flex">
+            <div class="col-xs-7 map-wrapper">
+                <div class="map-container" id="map"></div>
+            </div>
+            <div class="col-xs-5">
+                <a href="#" class="btn btn-block btn-lg btn-primary" name="deviceLocations" id="deviceDonate">Donate</a>
+                <div class="pg-evive-detail"><p>
+                    Location<br/>
+                    <small>
+                        201 N Goodwin Ave, Urbana, IL 61801<br/>
+                        Room 1404<br/>
+                        Phone: (XXX) XXX-XXXX<br/>
+                    </small>
+                </p></div>
+
+                <a href="#" class="btn btn-block btn-lg btn-primary" name="deviceLocations" id="deviceList">List on Evive</a>
+                <div class="pg-evive-detail"><p>
+                    <small>
+                        List on Evive online so that people can see the listing in the "Get" section.<br/>
+                        They can contact you directly to make an exchange.<br/>
+                    </small>
+                </p></div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -158,80 +182,28 @@
 <script>
     setNavigation("deviceLocation");
 
-    setVisual();
     setOnClick();
 
-    (function ($) {
-        var MIN_VALUE = 1;
-        var MAX_VALUE = 7;
-        var DEFAULT_VALUE = 4;
-
-        // Add segments to a slider
-        $.fn.addSliderSegments = function (amount, orientation) {
-            return this.each(function () {
-                if (orientation === 'vertical') {
-                    var output = '';
-                    var i;
-                    for (i = 1; i <= amount - 2; i++) {
-                        output += '<div class="ui-slider-segment" style="top:' + 100 / (amount - 1) * i + '%;"></div>';
-                    }
-                    $(this).prepend(output);
-                } else {
-                    var segmentGap = 100 / (amount - 1) + '%';
-                    var segment = '<div class="ui-slider-segment" style="margin-left: ' + segmentGap + ';"></div>';
-                    $(this).prepend(segment.repeat(amount - 2));
-                }
-            });
-        };
-
-        $(function () {
-
-            // jQuery UI Sliders
-            var $slider = $('#slider');
-            if ($slider.length > 0) {
-                $slider.slider({
-                    min: MIN_VALUE,
-                    max: MAX_VALUE,
-                    value: DEFAULT_VALUE,
-                    orientation: 'horizontal',
-                    range: 'min',
-                    create: function(event, ui) {
-                        if (!localStorage.deviceCondition) return;
-                        $(this).slider('value', localStorage.deviceCondition);
-                    }
-                }).addSliderSegments($slider.slider('option').max);
-            }
-
-            var $verticalSlider = $('#vertical-slider');
-            if ($verticalSlider.length) {
-                $verticalSlider.slider({
-                    min: MIN_VALUE,
-                    max: MAX_VALUE,
-                    value: DEFAULT_VALUE,
-                    orientation: 'vertical',
-                    range: 'min'
-                }).addSliderSegments($verticalSlider.slider('option').max, 'vertical');
-            }
-
-            // make code pretty
-            window.prettyPrint && prettyPrint();
-
+    function setOnClick() {
+        $("#deviceDonate").click(function () {
+            goto("evive_device_donate.html");
         });
 
-    })(jQuery);
-
-    function setVisual() {
-        if (!localStorage.deviceCondition) return;
-        $("#deviceConditionNode").value = localStorage.deviceConditionNote;
+        $("#deviceList").click(function () {
+            localStorage.deviceLocation = this.id;
+            goto("evive_device_user.html");
+        });
     }
 
-    function setOnClick() {
-        $("#deviceConditionSubmit").click(function () {
-            localStorage.deviceCondition = $('#slider').slider("option", "value");
-            localStorage.deviceConditionNote = $("#deviceConditionNode").value;
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+            center: {lat: 40.113801, lng: -88.224914},
+            zoom: 15
         });
     }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
 

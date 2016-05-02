@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Device Type - Evive</title>
-    <meta name="description" content="Device Condition - Evive">
+    <meta name="description" content="Device Location - Evive">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -139,50 +139,34 @@
         <div class="row">
             <div class="col-xs-10">
                 <div class="row">
-                    <h6>The device condition is</h6>
+                    <h6>Please sign in or register so that you can manage your listing later</h6>
                 </div>
-                <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 50%;"></a>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                        <div class="row container-img-padded">
-                            <img class="img-responsive center-block svg" src="img/layout/device-new.svg" />
-                        </div>
-                        <div class="row text-center">
-                            <small>Like New</small>
-                        </div>
-                    </div>
-                    <div class="col-xs-2 col-xs-offset-3">
-                        <div class="row container-img-padded">
-                            <img class="img-responsive center-block svg" src="img/layout/device-old.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Used</small>
-                        </div>
-                    </div>
-                    <div class="col-xs-2 col-xs-offset-3">
-                        <div class="row container-img-padded">
-                            <img class="img-responsive center-block svg" src="img/layout/device-break.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Unusable</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <h6>Additional Note (Optional)</h6>
-                </div>
-                <div class="row row-flex">
-                    <!--<div class="form-group">-->
-                        <div class="col-md-9 col-xs-12">
-                            <textarea class="form-control" placeholder="The defects of the device, etc." rows="8" id="deviceConditionNote"></textarea>
-                        </div>
-                        <div class="col-md-3 col-xs-12">
-                            <a href="#" class="btn btn-block btn-lg btn-primary vertical-bottom" id="deviceConditionSubmit">Next</a>
-                        </div>
-                    <!--</div>-->
-                </div>
+            </div>
+        </div>
+        <div class="row row-flex">
+            <div class="col-xs-7 map-wrapper">
+                <div class="map-container" id="map"></div>
+            </div>
+            <div class="col-xs-5">
+                <a href="#" class="btn btn-block btn-lg btn-default disabled" name="deviceLocations" id="deviceDonate">Donate</a>
+                <div class="pg-evive-detail"><p>
+                    Location<br/>
+                    <small>
+                        201 N Goodwin Ave, Urbana, IL 61801<br/>
+                        Room 1404<br/>
+                        Phone: (XXX) XXX-XXXX<br/>
+                    </small>
+                </p></div>
+
+                <div class="pg-evive-detail"><p>
+                    How to donate the device<br/>
+                    <small>
+                        Goto the location above<br/>
+                        Ask the staff to analyze the device<br/>
+                        (May be qualified for a Gift Card!)<br/>
+                        The staff will take care of the device<br/>
+                    </small>
+                </p></div>
             </div>
         </div>
     </div>
@@ -198,83 +182,26 @@
 <script src="js/login.js"></script>
 <script src="js/evive-device.js"></script>
 <script>
-    setNavigation("deviceCondition");
+    setNavigation("deviceUser");
 
-    setVisual();
     setOnClick();
 
-    (function ($) {
-        var MIN_VALUE = 1;
-        var MAX_VALUE = 7;
-        var DEFAULT_VALUE = 4;
-
-        // Add segments to a slider
-        $.fn.addSliderSegments = function (amount, orientation) {
-            return this.each(function () {
-                if (orientation === 'vertical') {
-                    var output = '';
-                    var i;
-                    for (i = 1; i <= amount - 2; i++) {
-                        output += '<div class="ui-slider-segment" style="top:' + 100 / (amount - 1) * i + '%;"></div>';
-                    }
-                    $(this).prepend(output);
-                } else {
-                    var segmentGap = 100 / (amount - 1) + '%';
-                    var segment = '<div class="ui-slider-segment" style="margin-left: ' + segmentGap + ';"></div>';
-                    $(this).prepend(segment.repeat(amount - 2));
-                }
-            });
-        };
-
-        $(function () {
-
-            // jQuery UI Sliders
-            var $slider = $('#slider');
-            if ($slider.length > 0) {
-                $slider.slider({
-                    min: MIN_VALUE,
-                    max: MAX_VALUE,
-                    value: DEFAULT_VALUE,
-                    orientation: 'horizontal',
-                    range: 'min',
-                    create: function(event, ui) {
-                        if (!localStorage.deviceCondition) return;
-                        $(this).slider('value', localStorage.deviceCondition);
-                    }
-                }).addSliderSegments($slider.slider('option').max);
-            }
-
-            var $verticalSlider = $('#vertical-slider');
-            if ($verticalSlider.length) {
-                $verticalSlider.slider({
-                    min: MIN_VALUE,
-                    max: MAX_VALUE,
-                    value: DEFAULT_VALUE,
-                    orientation: 'vertical',
-                    range: 'min'
-                }).addSliderSegments($verticalSlider.slider('option').max, 'vertical');
-            }
-
-            // make code pretty
-            window.prettyPrint && prettyPrint();
-
+    function setOnClick() {
+        $("[name='deviceLocations']").click(function () {
+            localStorage.deviceLocation = this.id;
+            goto("evive_device_user.html");
         });
-
-    })(jQuery);
-
-    function setVisual() {
-        if (!localStorage.deviceCondition) return;
-        $("#deviceConditionNote").val(localStorage.deviceConditionNote);
     }
 
-    function setOnClick() {
-        $("#deviceConditionSubmit").click(function () {
-            localStorage.deviceCondition = $('#slider').slider("option", "value");
-            localStorage.deviceConditionNote = $("#deviceConditionNote").val();
-            goto("evive_device_location.html");
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+            center: {lat: 40.113801, lng: -88.224914},
+            zoom: 15
         });
     }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
 
