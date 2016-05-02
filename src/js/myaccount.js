@@ -12,5 +12,11 @@ var DummyLoginUtil = new DummyLoginUtil();
     document.getElementById("my-acc-user-name").innerHTML = localStorage.eviveCurUser;
     document.getElementById("my-acc-user-email").innerHTML = localStorage.eviveCurEmail;
 
-
+    $("#cancel-listing").click(function(){
+        if (confirm("Are you sure?") == true)
+        {
+            $("#first-listing").hide();
+            $("#my-acc-num-list").html(0);
+        }
+    })
 })();
