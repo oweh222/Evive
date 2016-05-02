@@ -40,7 +40,7 @@
     <div class="col-xs-10 col-xs-offset-1">
         <div id="deviceType">
             <div class="row">
-                <div class="col-md-8 col-xs-12" style="padding-left: 0px">
+                <div class="col-md-8 col-xs-12 no-padding">
                     <h6>I want to Evive a</h6>
                 </div>
                 <div class="col-md-4 col-xs-12 text-right buttom-vertical">
@@ -166,16 +166,19 @@
 </div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-2.2.0.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/flat-ui.min.js"></script>
 <script src="js/plugins.js"></script>
-<script src="js/DummyLoginUtil.js"></script>
 <script src="js/evive-device.js"></script>
 
 <script>
     setVisual();
     setOnClick();
+
+    var eviveType = getUrlParameter('eviveType');
+    if (eviveType) {
+        localStorage.eviveType = eviveType;
+    }
 
     function setVisual() {
         $("#deviceType").hide();
@@ -214,7 +217,10 @@
 
         $("[name='deviceModels']").click(function () {
             localStorage.deviceModel = this.id;
-            goto("evive_device_condition.html");
+            if (localStorage.eviveType != "get")
+                goto("evive_device_condition.html");
+            else
+                goto("evive_device_listing.html");
         });
     }
 </script>
