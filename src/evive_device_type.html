@@ -30,8 +30,8 @@
     </div>
     <ul class = "nav navbar-nav navbar-right">
         <li><a href = "#">About</a></li>
-        <li><a href = "evive_device_type.html">Give</a></li>
-        <li><a href = "evive_device_type.html">Get</a></li>
+        <li><a href = "evive_device_type.html?eviveType=give">Give</a></li>
+        <li><a href = "evive_device_type.html?eviveType=get">Get</a></li>
         <li><a href = "login.html">My Account</a></li>
     </ul>
 </nav>
@@ -40,7 +40,7 @@
     <div class="col-xs-10 col-xs-offset-1">
         <div id="deviceType">
             <div class="row">
-                <div class="col-md-8 col-xs-12" style="padding-left: 0px">
+                <div class="col-md-8 col-xs-12 no-padding">
                     <h6>I want to Evive a</h6>
                 </div>
                 <div class="col-md-4 col-xs-12 text-right buttom-vertical">
@@ -175,6 +175,11 @@
     setVisual();
     setOnClick();
 
+    var eviveType = getUrlParameter('eviveType');
+    if (eviveType) {
+        localStorage.eviveType = eviveType;
+    }
+
     function setVisual() {
         $("#deviceType").hide();
         $("#deviceBrand").hide();
@@ -212,7 +217,10 @@
 
         $("[name='deviceModels']").click(function () {
             localStorage.deviceModel = this.id;
-            goto("evive_device_condition.html");
+            if (localStorage.eviveType != "get")
+                goto("evive_device_condition.html");
+            else
+                goto("evive_device_listing.html");
         });
     }
 </script>

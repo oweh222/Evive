@@ -13,6 +13,11 @@
     transform: translateY(-100%);
 }
 
+.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .pg-evive-detail {
     padding-left: 10px;
     padding-right: 10px;
