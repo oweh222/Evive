@@ -24,17 +24,7 @@
 
 <!-- Add your site or application content here -->
 <div class="container">
-<nav class = "navbar navbar-inverse">
-    <div class = "navbar-header">
-        <a class = "navbar-brand" href = "index.html">Evive</a>
-    </div>
-    <ul class = "nav navbar-nav navbar-right">
-        <li><a href = "about.html">About</a></li>
-        <li><a href = "evive_device_type.html?eviveType=give">Give</a></li>
-        <li><a href = "evive_device_type.html?eviveType=get">Get</a></li>
-        <li><a href = "login.html">My Account</a></li>
-    </ul>
-</nav>
+    <div id="mainNavigation"></div>
 
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
@@ -43,86 +33,7 @@
                 <small>Or want to check <a href="otheroptions.html">Other Options</a>?</small>
             </div>
         </div>
-        <div class="row container-option">
-            <div class="col-xs-8"><div class="row">
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceType">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/devices/smartphone.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Smartphone</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceBrand">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/brands/apple.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Apple</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceModel">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/devices/smartphone.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>iPhone 6S</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceCondition">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/wrench.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceLocation">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/map-placeholder.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceUser">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/user-account-box.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                </div></div>
-            </div></div>
-        </div>
+        <div id="eviveNavigation"></div>
         <hr class="hr-small"/>
         <div class="row">
             <div class="col-xs-10">
@@ -163,14 +74,19 @@
 <script>window.jQuery || document.write('<script src="js/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/flat-ui.min.js"></script>
 <script src="js/plugins.js"></script>
+<script src="js/evive.js"></script>
 <script src="js/evive-device.js"></script>
 
 <script>
-    setNavigation("deviceLocation");
+    if (localStorage.deviceSubmitted) {
+        window.location.href = "evive_device_user.html";
+    }
 
-    setOnClick();
+    loadEviveNavigation("deviceLocation");
 
-    function setOnClick() {
+    setEvents();
+
+    function setEvents() {
         $("#deviceDonate").click(function () {
             goto("evive_device_donate.html");
         });

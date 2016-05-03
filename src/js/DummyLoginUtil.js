@@ -36,14 +36,14 @@
             };
 
             DummyLoginUtil.prototype.registerUser = function(newUser) {
+                var users;
                 if (!localStorage.eviveUsers)
-                    localStorage.setItem("eviveUsers", JSON.stringify([User]));
-                else
-                {
-                    var users = JSON.parse(localStorage.eviveUsers);
+                    users = JSON.stringify([newUser]);
+                else {
+                    users = JSON.parse(localStorage.eviveUsers);
                     users.push(newUser);
-                    localStorage.setItem("eviveUsers", JSON.stringify(users));
                 }
+                localStorage.eviveUsers = JSON.stringify(users);
             };
 
             /**
@@ -51,7 +51,7 @@
             */
             DummyLoginUtil.prototype.resetUserInfo = function()  {
                 var admin = new EviveUser("Group4", "cs465","cs465group4@illinois.edu", "1404 Siebel Center", "Group 4", "8888888888");
-                localStorage.setItem("eviveUsers", JSON.stringify([admin]));
+                localStorage.eviveUsers = JSON.stringify([admin]);
             };
 
             /**
@@ -59,19 +59,46 @@
             */
             DummyLoginUtil.prototype.logOnUser = function(user) {
                 localStorage.eviveCurUser = user.username;
-                localStorage.eviveCurEmail = user.email;
-                localStorage.eviveCurAddress = user.address;
-                localStorage.eviveCurNickname = user.nickname;
-                localStorage.eviveCurMobile = user.mobile;
                 return true;
             };
 
             DummyLoginUtil.prototype.logOutUser = function() {
                 localStorage.removeItem("eviveCurUser");
-                localStorage.removeItem("eviveCurEmail");
             };
 
+            DummyLoginUtil.prototype.currentUser = function() {
+                return localStorage.eviveCurUser;
+            }
 
+            DummyLoginUtil.prototype.requestUserInfo = function() {
+                var users = JSON.parse(localStorage.eviveUsers);
+                var result = false;
+
+                users.forEach(function(user, index) {
+                    if (user.username == localStorage.eviveCurUser)
+                        return result = {
+                            email: user.email,
+                            address: user.address,
+                            nickname: user.nickname,
+                            mobile: user.mobile
+                        };
+                });
+
+                return result;
+            }
+
+            DummyLoginUtil.prototype.updateUserInfo = function(userInfo) {
+                var users = JSON.parse(localStorage.eviveUsers);
+                users.forEach(function(user, index) {
+                    if (user.username == localStorage.eviveCurUser) {
+                        user.email = userInfo.email;
+                        user.address = userInfo.address;
+                        user.nickname = userInfo.nickname;
+                        user.mobile = userInfo.mobile;
+                    }
+                });
+                localStorage.eviveUsers = JSON.stringify(users);
+            };
 
 
 
@@ -83,7 +110,7 @@
  * @param address user address
  * @constructor
  */
-function EviveUser(un, pw, email, address, nickname, mobile)  {
+function EviveUser(un, pw, email, address, nickname, mobile) {
     this.username = un;
     this.password = pw;
     this.email = email;
@@ -91,15 +118,3 @@ function EviveUser(un, pw, email, address, nickname, mobile)  {
     this.nickname = nickname;
     this.mobile = mobile;
 }
-
-
-
-
-
-
-
-
-
-
-
-

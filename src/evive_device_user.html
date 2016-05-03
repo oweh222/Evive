@@ -24,17 +24,7 @@
 
 <!-- Add your site or application content here -->
 <div class="container">
-<nav class = "navbar navbar-inverse">
-    <div class = "navbar-header">
-        <a class = "navbar-brand" href = "index.html">Evive</a>
-    </div>
-    <ul class = "nav navbar-nav navbar-right">
-        <li><a href = "about.html">About</a></li>
-        <li><a href = "evive_device_type.html?eviveType=give">Give</a></li>
-        <li><a href = "evive_device_type.html?eviveType=get">Get</a></li>
-        <li><a href = "login.html">My Account</a></li>
-    </ul>
-</nav>
+    <div id="mainNavigation"></div>
 
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
@@ -43,86 +33,7 @@
                 <small>Or want to check <a href="otheroptions.html">Other Options</a>?</small>
             </div>
         </div>
-        <div class="row container-option">
-            <div class="col-xs-8"><div class="row">
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceType">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/devices/smartphone.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Smartphone</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceBrand">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/brands/apple.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>Apple</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceModel">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/devices/smartphone.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>iPhone 6S</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceCondition">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/wrench.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceLocation">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/map-placeholder.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                    <div class="col-md-3 col-xs-1 splitter-navigation icon-disabled">
-                        <img class="img-responsive center-block svg" src="img/layout/triangle.svg"/>
-                    </div>
-                </div></div>
-                <div class="col-xs-2"><div class="row row-flex">
-                    <div class="col-md-9 col-xs-11"><a href="#" class="button-icon" name="deviceNavigations" id="nav_deviceUser">
-                        <div class="row">
-                            <img class="img-responsive center-block svg" src="img/layout/user-account-box.svg"/>
-                        </div>
-                        <div class="row text-center">
-                            <small>&nbsp;</small>
-                        </div>
-                    </a></div>
-                </div></div>
-            </div></div>
-        </div>
+        <div id="eviveNavigation"></div>
         <hr class="hr-small"/>
         <div class="row">
             <div class="col-xs-10">
@@ -133,48 +44,48 @@
         </div>
         <div class="row row-flex">
             <div class="col-xs-4">
-                <div class="row login-form" name="accountColumn" id="loginForm">
+                <div class="row login-form" data-type="accountColumn" id="loginForm">
                     <div class="form-group" id="loginUsernameGroup">
                         <input type="text" class="form-control login-field" value="" placeholder="Enter your Username" id="loginUsername">
                     </div>
                     <div class="form-group" id="loginPasswordGroup">
                         <input type="password" class="form-control login-field" value="" placeholder="Password" id="loginPassword">
                     </div>
-                    <a class="btn btn-primary btn-lg btn-block" id="loginSubmit">Log in / Register</a>
+                    <a class="btn btn-primary btn-lg btn-block" id="loginSubmit">Log in</a>
                     <a class="login-link" id="loginLostPassword" href="">Lost your password?</a>
                 </div>
-                <div class="row login-form" name="accountColumn" id="contactForm">
+                <div class="row login-form" data-type="accountColumn" id="contactForm">
                     <div class="form-group">
                         <p>
                             <small>Email<br/></small>
-                            cs465group4@illinois.edu
+                            <span data-type="Email">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control login-field" value="" placeholder="Nickname" id="contactNickname">
+                        <input type="text" class="form-control login-field" value="" placeholder="Nickname" id="contactNickname" title="Nickname">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control login-field" value="" placeholder="Mobile phone number" id="contactMobile">
+                        <input type="text" class="form-control login-field" value="" placeholder="Mobile phone number" id="contactMobile" title="Mobile">
                     </div>
                     <a class="btn btn-primary btn-lg btn-block" id="contactSubmit">Submit Listing</a>
                 </div>
-                <div class="row login-form" name="accountColumn" id="accountInfo">
+                <div class="row login-form" data-type="accountColumn" id="accountInfo">
                     <div class="form-group">
                         <p>
-                            <small>Email<br/></small>
-                            cs465group4@illinois.edu
+                            <small>Email</small><br/>
+                            <span data-type="Email">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
                         <p>
-                            <small>Nickname<br/></small>
-                            Group 4
+                            <small>Nickname</small><br/>
+                            <span data-type="Nickname">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
                         <p>
-                            <small>Mobile phone number<br/></small>
-                            888-888-8888
+                            <small>Mobile phone number</small><br/>
+                            <span data-type="Mobile">&nbsp;</span>
                         </p>
                     </div>
                     <a href="myaccount.html" class="btn btn-primary btn-lg btn-block" id="accountGoto">Goto My Account</a>
@@ -182,15 +93,14 @@
             </div>
             <div class="col-xs-8">
                 <p>
-                    <small>Device<br/></small>
-                    Apple iPhone 6S<br/>
+                    <small>Device</small><br/>
+                    <span class="text-placeholder" id="deviceFullName">&nbsp;</span><br/>
                     <br/>
                     <small>Condition<br/></small>
-                    Like New<br/>
+                    <span class="text-placeholder" id="deviceConditionText">&nbsp;</span><br/>
                     <br/>
                     <small>Additional Note<br/></small>
-                    Used for three days before iPhone 7 came out.<br/>
-                    No defects.<br/>
+                    <span class="text-placeholder" id="deviceConditionNote">&nbsp;</span><br/>
                 </p>
             </div>
         </div>
@@ -202,43 +112,49 @@
 <script>window.jQuery || document.write('<script src="js/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/flat-ui.min.js"></script>
 <script src="js/plugins.js"></script>
+<script src="js/evive.js"></script>
 <script src="js/evive-device.js"></script>
 <script src="js/DummyLoginUtil.js"></script>
 
 <script>
     var DummyLoginUtil = new DummyLoginUtil();
 
-    setNavigation("deviceUser");
+    loadEviveNavigation("deviceUser");
 
     setVisual('');
-    setOnClick();
+    setEvents();
 
     function setVisual(stage) {
-        $("[name='accountColumn']").hide();
+        var deviceDesc = getDeviceDesc();
+        $("#deviceFullName").text(deviceDesc.name);
+        $("#deviceConditionText").text(deviceDesc.condition);
+        $("#deviceConditionNote").text(deviceDesc.conditionNote);
 
-        if (!localStorage.eviveCurUser) {
+        $("[data-type='accountColumn']").hide();
+
+        if (!DummyLoginUtil.currentUser()) {
             $("#loginForm").show();
             return;
         }
 
+        var userInfo = DummyLoginUtil.requestUserInfo();
+        var $textTips = $("#textTips");
+        $("[data-type='Email']").text(userInfo.email);
         if (stage != 'accountInfo') {
-            $("#textTips").text("And finally, please update your contact information");
-            $("#contactNickname").val(localStorage.eviveCurNickname);
-            $("#contactMobile").val(localStorage.eviveCurMobile);
+            $textTips.text("And finally, please check your contact information");
+            $("#contactNickname").val(userInfo.nickname);
+            $("#contactMobile").val(userInfo.mobile);
             $("#contactForm").show();
             return;
         }
 
-        $("#textTips").text("Your have successfully posted a listing on Evive!");
+        $textTips.text("Your have successfully posted a listing on Evive!");
+        $("[data-type='Nickname']").text(userInfo.nickname);
+        $("[data-type='Mobile']").text(userInfo.mobile);
         $("#accountInfo").show();
     }
 
-    function setOnClick() {
-        $("[name='deviceLocations']").click(function () {
-            localStorage.deviceLocation = this.id;
-            goto("evive_device_user.html");
-        });
-
+    function setEvents() {
         $("#loginSubmit").click(function() {
             var username = document.getElementById("loginUsername").value;
             var password = document.getElementById("loginPassword").value;
@@ -253,14 +169,21 @@
 
         $("#loginLostPassword").click(function() {
             DummyLoginUtil.resetUserInfo();
-            return alert("An email was sent to your email address, follow the instruction to reset your password.");
+            return alert("(For demo only) The user has been reset to 'Group4' with password 'cs465'.");
         });
 
         $("#contactSubmit").click(function() {
+            var userInfo = DummyLoginUtil.requestUserInfo();;
+            userInfo.nickname = $("#contactNickname").val();
+            userInfo.mobile = $("#contactMobile").val();
+            DummyLoginUtil.updateUserInfo(userInfo);
+
+            localStorage.deviceSubmitted = $.now();
+
+            loadEviveNavigation("deviceDone");
             setVisual('accountInfo');
         });
     }
 </script>
-</body>
 </html>
 

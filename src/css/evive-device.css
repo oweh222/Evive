@@ -110,3 +110,7 @@
 
 .login-form {
 }
+
+.text-placeholder {
+    white-space: pre-line;
+}

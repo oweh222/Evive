@@ -24,17 +24,7 @@
 
 <!-- Add your site or application content here -->
 <div class = "container">
-    <nav class = "navbar navbar-inverse">
-        <div class = "navbar-header">
-            <a class = "navbar-brand" href = "index.html">Evive</a>
-        </div>
-        <ul class = "nav navbar-nav navbar-right">
-            <li><a href = "about.html">About</a></li>
-            <li><a href = "evive_device_type.html?eviveType=give">Give</a></li>
-            <li><a href = "evive_device_type.html?eviveType=get">Get</a></li>
-            <li><a href = "login.html">My Account</a></li>
-        </ul>
-    </nav>
+    <div id="mainNavigation"></div>
 
     <div class = "container-fluid">
         <div class="col-md-4 profile-pic">
@@ -54,12 +44,12 @@
             <img src = "img/devices/smartphone.svg" height = "100%">
         </div>
         <div class="col-md-6 device-info">
-            <p>Device Type: <span id = "listing-device-type">Apple iPhone 6S</span></p>
-            <p>Device Condition: <span id = "listing-device-condition">Like New</span></p>
+            <p>Device Type: <span id = "listing-device-type">&nbsp;</span></p>
+            <p>Device Condition: <span id = "listing-device-condition">&nbsp;</span></p>
             <p>Listing Status: <span id = "listing-status">Not Yet Sold</span></p>
         </div>
         <div class="col-md-3 device-button-group">
-            <a href="evive_device_type.html" class="btn btn-block btn-lg btn-info">Edit Listing</a>
+            <a href="evive_device_type.html?eviveType=give" class="btn btn-block btn-lg btn-info">Edit Listing</a>
             <a id = "cancel-listing" class="btn btn-block btn-lg btn-danger">Cancel Listing</a>
 
         </div>
@@ -73,6 +63,8 @@
 <script>window.jQuery || document.write('<script src="js/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/flat-ui.min.js"></script>
 <script src="js/plugins.js"></script>
+<script src="js/evive.js"></script>
+<script src="js/evive-device.js"></script>
 <script src="js/DummyLoginUtil.js"></script>
 <script src="js/myaccount.js"></script>
 

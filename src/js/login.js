@@ -1,8 +1,9 @@
-
 var DummyLoginUtil = new DummyLoginUtil();
 
-(function(){
+if (DummyLoginUtil.currentUser())
+    window.location.href = "myaccount.html";
 
+(function() {
     document.getElementById("login-btn").onclick = function(){
         var username = document.getElementById("login-name").value;
         var password = document.getElementById("login-pw").value;
@@ -16,5 +17,5 @@ var DummyLoginUtil = new DummyLoginUtil();
         DummyLoginUtil.resetUserInfo();
         return alert("An email was sent to your email address, follow the instruction to reset your password.");
     };
-
 })();
+
