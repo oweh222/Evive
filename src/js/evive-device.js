@@ -59,7 +59,7 @@ function loadEviveNavigation(stage) {
             $("[name='deviceNavigations']").addClass("button-icon-disabled");
 
             var $nav_deviceType = $("#nav_deviceType");
-            var deviceType = JSON.parse(localStorage.deviceTypeObj);
+            var deviceType = getInfo("deviceTypeObj");
             $nav_deviceType.find("small").text(deviceType.text);
             $nav_deviceType.find("img").attr("src", deviceType.image);
             $nav_deviceType.removeClass("button-icon-disabled");
@@ -73,7 +73,7 @@ function loadEviveNavigation(stage) {
             $nav_deviceType.addClass("button-icon-selected");
 
             var $nav_deviceBrand = $("#nav_deviceBrand");
-            var deviceBrand = JSON.parse(localStorage.deviceBrandObj);
+            var deviceBrand = getInfo("deviceBrandObj");
             $nav_deviceBrand.find("small").text(deviceBrand.text);
             $nav_deviceBrand.find("img").attr("src", deviceBrand.image);
             $nav_deviceBrand.removeClass("button-icon-disabled");
@@ -87,7 +87,7 @@ function loadEviveNavigation(stage) {
             $nav_deviceBrand.addClass("button-icon-selected");
 
             var $nav_deviceModel = $("#nav_deviceModel");
-            $nav_deviceModel.find("small").text(JSON.parse(localStorage.deviceModelObj).text);
+            $nav_deviceModel.find("small").text(getInfo("deviceModelObj").text);
             $nav_deviceModel.removeClass("button-icon-disabled");
             if (stage == "deviceModel") {
                 $nav_deviceModel.addClass("button-icon-current");
@@ -150,6 +150,7 @@ function clearStorage() {
     localStorage.removeItem("deviceCondition");
     localStorage.removeItem("deviceLocation");
     localStorage.removeItem("deviceUser");
+    localStorage.deviceGet = JSON.stringify({});
     setVisual();
 }
 
@@ -167,4 +168,49 @@ function getDeviceDesc() {
         condition: deviceConditionText,
         conditionNote: localStorage.deviceConditionNote
     };
+}
+
+function getDeviceGetName() {
+    return getInfo("deviceBrandObj").text + " " + getInfo("deviceModelObj").text;
+}
+
+function getInfo(type, eviveType) {
+    if (!eviveType)
+        eviveType = localStorage.eviveType;
+
+    if (eviveType != "get") {
+        var info = localStorage[type];
+        return info ? JSON.parse(info) : false;
+    }
+    else {
+        if (!localStorage.deviceGet)
+            localStorage.deviceGet = JSON.stringify({});
+        return JSON.parse(localStorage.deviceGet)[type];
+    }
+}
+
+function setInfo(type, obj, eviveType) {
+    if (!eviveType)
+        eviveType = localStorage.eviveType;
+
+    if (eviveType != "get")
+        localStorage[type] = JSON.stringify(obj);
+    else {
+        var deviceGet = JSON.parse(localStorage.deviceGet);
+        deviceGet[type] = obj;
+        localStorage.deviceGet = JSON.stringify(deviceGet);
+    }
+}
+
+function removeInfo(type, eviveType) {
+    if (!eviveType)
+        eviveType = localStorage.eviveType;
+
+    if (eviveType != "get")
+        localStorage.removeItem(type);
+    else {
+        var deviceGet = JSON.parse(localStorage.deviceGet);
+        delete deviceGet[type];
+        localStorage.deviceGet = JSON.stringify(deviceGet);
+    }
 }

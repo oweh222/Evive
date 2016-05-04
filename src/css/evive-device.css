@@ -119,3 +119,8 @@
 .invis {
     display: none;
 }
+
+.text-compact {
+    margin: 0px;
+    line-height: normal;
+}

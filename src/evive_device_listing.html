@@ -36,27 +36,37 @@
         <div id="eviveNavigation"></div>
         <hr class="hr-small"/>
         <div class="row">
-            <div class="col-xs-10">
-                <div class="row">
-                    <h6>We found 1 match listing!</h6>
+            <div class="col-xs-12">
+                <div class="row row-flex button-middle">
+                    <div class="col-xs-8">
+                        <h6>We found <span id="deviceListings">&nbsp;</span> match listing!</h6>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="evive_device_type.html?eviveType=give" class="btn btn-block btn-lg btn-primary">List Mine Now</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row row-flex">
+        <div class="row row-flex button-middle" data-type="deviceListing">
             <div class="col-xs-2">
                 <img class="img-responsive center-block svg" src="img/devices/smartphone.svg"/>
             </div>
-            <div class="col-xs-7 button-middle">
+            <div class="col-xs-7">
+                <div class="row row-flex button-middle">
+                    <div class="col-xs-7">
+                        <h6 class="text-placeholder text-compact" data-type="deviceFullName"></h6>
+                    </div>
+                    <div class="col-xs-4">
+                        <p class="color-normal text-placeholder text-right text-compact" data-type="deviceCondition"></p>
+                    </div>
+                </div>
                 <div class="row">
-                    <h6>iPhone 6S<br/>
-                    <small class="color-normal">
-                    Used for three days before iPhone 7 came out.<br/>
-                    No defects.<br/>
-                    </small>
-                    </h6>
+                    <div class="col-xs-12">
+                        <small class="color-normal text-placeholder" data-type="deviceConditionNote"></small>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-3 button-middle">
+            <div class="col-xs-3">
                 <a href="#" class="btn btn-block btn-lg btn-info" id="deviceContactOwner">Contact Owner</a>
             </div>
         </div>
@@ -73,6 +83,22 @@
 
 <script>
     loadEviveNavigation("deviceListing");
+
+    setVisual();
+
+    function setVisual() {
+        if (!localStorage.deviceSubmitted || getDeviceDesc().name != getDeviceGetName()) {
+            $("#deviceListings").text("0");
+            $("[data-type='deviceListing']").hide();
+        }
+        else {
+            $("#deviceListings").text("1");
+            var deviceDesc = getDeviceDesc();
+            $("[data-type='deviceFullName']").text(deviceDesc.name);
+            $("[data-type='deviceCondition']").text(deviceDesc.condition);
+            $("[data-type='deviceConditionNote']").text(deviceDesc.conditionNote);
+        }
+    }
 </script>
 
 </body>

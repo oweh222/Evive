@@ -31,7 +31,7 @@
         <div class="invis" id="deviceType">
             <div class="row">
                 <div class="col-md-8 col-xs-12 no-padding">
-                    <h6>I want to Evive a</h6>
+                    <h6 id="textTips">I want to Evive a</h6>
                 </div>
                 <div class="col-md-4 col-xs-12 text-right buttom-vertical">
                     <small>Or want to check <a href="otheroptions.html" onclick="clearStorage();">Other Options</a>?</small>
@@ -195,17 +195,26 @@
 
     var clear = getUrlParameter('clear');
     if (clear == 'yes') {
-        localStorage.removeItem("deviceTypeObj");
-        localStorage.removeItem("deviceBrandObj");
-        localStorage.removeItem("deviceModelObj");
-        if (eviveType == "give") localStorage.removeItem("deviceSubmitted");
+        removeInfo("deviceTypeObj");
+        removeInfo("deviceBrandObj");
+        removeInfo("deviceModelObj");
+
+        localStorage.removeItem("deviceEditing");
     }
+    else if (clear == "no")
+        localStorage.deviceEditing = $.now();
+
 
     setVisual();
     setEvents();
 
     function setVisual() {
         loadInlineSvg();
+
+        if (localStorage.eviveType != "get")
+            $("#textTips").text("I want to Evive a");
+        else
+            $("#textTips").text("I want to get a");
 
         var $deviceTypes = $("[name='deviceTypes']");
         var $deviceBrands = $("[name='deviceBrands']");
@@ -223,39 +232,53 @@
 
         $deviceTypes.removeClass("button-icon-selected");
         $deviceType.show();
-        if (!localStorage.deviceTypeObj) return;
-        $("#" + JSON.parse(localStorage.deviceTypeObj).id).addClass("button-icon-selected");
+        var deviceTypeObj = getInfo("deviceTypeObj");
+        if (!deviceTypeObj) return;
+        $("#" + deviceTypeObj.id).addClass("button-icon-selected");
 
         $deviceBrands.removeClass("button-icon-selected");
         $deviceBrand.show();
-        if (!localStorage.deviceBrandObj) return;
-        $("#" + JSON.parse(localStorage.deviceBrandObj).id).addClass("button-icon-selected");
+        var deviceBrandObj = getInfo("deviceBrandObj");
+        if (!deviceBrandObj) return;
+        $("#" + deviceBrandObj.id).addClass("button-icon-selected");
 
         $deviceModels.hide();
         $deviceModels.removeClass("button-icon-selected");
 
-        $deviceModel.find("[data-brand='" + JSON.parse(localStorage.deviceBrandObj).text + "']").show();
+        $deviceModel.find("[data-brand='" + deviceBrandObj.text + "']").show();
         $deviceModel.show();
-        if (!localStorage.deviceModelObj) return;
-        $("#" + JSON.parse(localStorage.deviceModelObj).id).addClass("button-icon-selected");
+        var deviceModelObj = getInfo("deviceModelObj");
+        if (!deviceModelObj) return;
+        $("#" + deviceModelObj.id).addClass("button-icon-selected");
+    }
+
+    function buildObject(element) {
+        return {
+            id: element.id,
+            text: element.dataset.text,
+            image: element.dataset.image
+        };
     }
 
     function setEvents() {
         $("[name='deviceTypes']").click(function () {
-            localStorage.deviceTypeObj = JSON.stringify({ "id": this.id, "text": this.dataset.text, "image": this.dataset.image });
-            localStorage.removeItem("deviceBrandObj");
-            localStorage.removeItem("deviceModelObj");
+            setInfo("deviceTypeObj", buildObject(this));
+            removeInfo("deviceBrandObj");
+            removeInfo("deviceModelObj");
+
             setVisual();
         });
 
         $("[name='deviceBrands']").click(function () {
-            localStorage.deviceBrandObj = JSON.stringify({ "id": this.id, "text": this.dataset.text, "image": this.dataset.image });
-            localStorage.removeItem("deviceModelObj");
+            setInfo("deviceBrandObj", buildObject(this));
+            removeInfo("deviceModelObj");
+
             setVisual();
         });
 
         $("[name='deviceModels']").click(function () {
-            localStorage.deviceModelObj = JSON.stringify({ "id": this.id, "text": this.dataset.text, "image": this.dataset.image });
+            setInfo("deviceModelObj", buildObject(this));
+
             if (localStorage.eviveType != "get")
                 goto("evive_device_condition.html");
             else
