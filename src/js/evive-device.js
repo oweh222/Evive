@@ -177,40 +177,35 @@ function getDeviceGetName() {
 function getInfo(type, eviveType) {
     if (!eviveType)
         eviveType = localStorage.eviveType;
+    if (!localStorage.deviceGet)
+        localStorage.deviceGet = JSON.stringify({});
 
     if (eviveType != "get") {
         var info = localStorage[type];
         return info ? JSON.parse(info) : false;
     }
-    else {
-        if (!localStorage.deviceGet)
-            localStorage.deviceGet = JSON.stringify({});
+    else
         return JSON.parse(localStorage.deviceGet)[type];
-    }
 }
 
 function setInfo(type, obj, eviveType) {
     if (!eviveType)
         eviveType = localStorage.eviveType;
+    if (!localStorage.deviceGet)
+        localStorage.deviceGet = JSON.stringify({});
 
     if (eviveType != "get")
         localStorage[type] = JSON.stringify(obj);
     else {
         var deviceGet = JSON.parse(localStorage.deviceGet);
-        deviceGet[type] = obj;
+        if (obj)
+            deviceGet[type] = obj;
+        else
+            delete deviceGet[type];
         localStorage.deviceGet = JSON.stringify(deviceGet);
     }
 }
 
 function removeInfo(type, eviveType) {
-    if (!eviveType)
-        eviveType = localStorage.eviveType;
-
-    if (eviveType != "get")
-        localStorage.removeItem(type);
-    else {
-        var deviceGet = JSON.parse(localStorage.deviceGet);
-        delete deviceGet[type];
-        localStorage.deviceGet = JSON.stringify(deviceGet);
-    }
+    setInfo(type, false, eviveType);
 }
