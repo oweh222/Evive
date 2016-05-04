@@ -39,7 +39,7 @@
         <div class="row" id="textTipsGroup">
             <div class="col-xs-10">
                 <div class="row">
-                    <h6 id="textTips">Please sign in or register so that you can manage your listing later</h6>
+                    <h6 id="textTips">&nbsp;</h6>
                 </div>
             </div>
         </div>
@@ -146,15 +146,16 @@
         $("#deviceConditionNote").text(deviceDesc.conditionNote);
 
         $("[data-type='accountColumn']").hide();
+        var $textTips = $("#textTips");
 
         var user = DummyLoginUtil.currentUser();
         if (!user) {
+            $textTips.text("Please sign in or register so that you can manage your listing later");
             $("#loginForm").show();
             return;
         }
 
         var userInfo = DummyLoginUtil.requestUserInfo();
-        var $textTips = $("#textTips");
         $("[data-type='textUsername']").text(user);
         if (stage != 'accountInfo') {
             $textTips.text("And finally, please check your contact information");
