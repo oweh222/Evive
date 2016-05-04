@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/flat-ui.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/navigation.css">
     <link rel="stylesheet" href="css/evive-device.css">
@@ -35,7 +36,7 @@
         </div>
         <div id="eviveNavigation"></div>
         <hr class="hr-small"/>
-        <div class="row">
+        <div class="row" id="textTipsGroup">
             <div class="col-xs-10">
                 <div class="row">
                     <h6 id="textTips">Please sign in or register so that you can manage your listing later</h6>
@@ -52,16 +53,22 @@
                         <input type="password" class="form-control login-field" value="" placeholder="Password" id="loginPassword">
                     </div>
                     <a class="btn btn-primary btn-lg btn-block" id="loginSubmit">Log in</a>
-                    <a class="login-link" id="loginLostPassword" href="">Lost your password?</a>
+                    <a class="login-link" id="loginLostPassword" href="#">Lost your password?</a>
                 </div>
                 <div class="row login-form invis" data-type="accountColumn" id="contactForm">
                     <div class="form-group">
                         <p>
-                            <small>Email<br/></small>
+                            <small>Email</small><br/>
                             <span data-type="Email">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
+                        <a class="btn btn-danger btn-lg btn-block" name="loginLogout">Log out</a>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <small>Contact Information</small>
+                        </p>
                         <input type="text" class="form-control login-field" value="" placeholder="Nickname" id="contactNickname" title="Nickname">
                     </div>
                     <div class="form-group">
@@ -88,7 +95,12 @@
                             <span data-type="Mobile">&nbsp;</span>
                         </p>
                     </div>
-                    <a href="myaccount.html" class="btn btn-primary btn-lg btn-block" id="accountGoto">Goto My Account</a>
+                    <div class="form-group">
+                        <a href="myaccount.html" class="btn btn-primary btn-lg btn-block" id="accountGoto">Goto My Account</a>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-danger btn-lg btn-block" name="loginLogout">Log out</a>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-8">
@@ -111,6 +123,7 @@
 
 <script>window.jQuery || document.write('<script src="js/jquery-2.2.3.min.js"><\/script>')</script>
 <script src="js/flat-ui.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/evive.js"></script>
 <script src="js/evive-device.js"></script>
@@ -156,21 +169,31 @@
 
     function setEvents() {
         $("#loginSubmit").click(function() {
-            var username = document.getElementById("loginUsername").value;
-            var password = document.getElementById("loginPassword").value;
+            var username = $("#loginUsername").val();
+            var password = $("#loginPassword").val();
             if (DummyLoginUtil.validateUser(username, password)) {
                 setVisual('');
             }
             else {
-                $("#loginUsernameGroup").addClass("has-error");
-                $("#loginPasswordGroup").addClass("has-error");
+                var $loginUsernameGroup = $("#loginUsernameGroup");
+                var $loginPasswordGroup = $("#loginPasswordGroup");
+                $loginUsernameGroup.addClass("has-error");
+                $loginPasswordGroup.addClass("has-error");
+                $loginUsernameGroup.effect("shake");
+                $loginPasswordGroup.effect("shake");
             }
         });
 
         $("#loginLostPassword").click(function() {
-            DummyLoginUtil.resetUserInfo();
-            return alert("(For demo only) The user has been reset to 'Group4' with password 'cs465'.");
+            var user = DummyLoginUtil.resetUserInfo();
+            $("#loginUsername").val(user.username);
+            $("#loginPassword").val(user.password);
         });
+
+        $("[name='loginLogout']").click(function() {
+            DummyLoginUtil.logOutUser();
+            setVisual('');
+        })
 
         $("#contactSubmit").click(function() {
             var userInfo = DummyLoginUtil.requestUserInfo();;

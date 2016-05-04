@@ -5,17 +5,23 @@ if (DummyLoginUtil.currentUser())
 
 (function() {
     document.getElementById("login-btn").onclick = function(){
-        var username = document.getElementById("login-name").value;
-        var password = document.getElementById("login-pw").value;
+        var username = $("#login-name").val();
+        var password = $("#login-pw").val();
         if (DummyLoginUtil.validateUser(username, password))
             window.location.href = "myaccount.html";
-        else
-            alert("Login Failed!");
+        else {
+            var $loginUsernameGroup = $("#loginUsernameGroup");
+            var $loginPasswordGroup = $("#loginPasswordGroup");
+            $loginUsernameGroup.addClass("has-error");
+            $loginPasswordGroup.addClass("has-error");
+            $loginUsernameGroup.effect("shake");
+            $loginPasswordGroup.effect("shake");
+        }
     };
 
     document.getElementById("reset-user").onclick = function(){
-        DummyLoginUtil.resetUserInfo();
-        return alert("An email was sent to your email address, follow the instruction to reset your password.");
+        var user = DummyLoginUtil.resetUserInfo();
+        $("#login-name").val(user.username);
+        $("#login-pw").val(user.password);
     };
 })();
-

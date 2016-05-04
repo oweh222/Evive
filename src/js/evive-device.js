@@ -109,6 +109,13 @@ function loadEviveNavigation(stage) {
             });
             $nav_deviceCondition.addClass("button-icon-selected");
 
+            if (stage == "deviceListing") {
+                $("#nav_deviceConditionGroup").hide();
+                $("#nav_deviceLocationGroup").hide();
+                $("#nav_deviceUserGroup").hide();
+                return;
+            }
+
             var $nav_deviceLocation = $("#nav_deviceLocation");
             $nav_deviceLocation.removeClass("button-icon-disabled");
             if (stage == "deviceLocation") {
