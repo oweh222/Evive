@@ -152,6 +152,7 @@
         if (!user) {
             $textTips.text("Please sign in or register so that you can manage your listing later");
             $("#loginForm").show();
+            showLoginForm();
             return;
         }
 
@@ -163,6 +164,7 @@
             $("#contactNickname").val(userInfo.nickname);
             $("#contactMobile").val(userInfo.mobile);
             $("#contactForm").show();
+            $("#contactEmail").focus();
             return;
         }
 
@@ -174,7 +176,7 @@
     }
 
     function setEvents() {
-        $("#contactSubmit").click(function() {
+        var contactSubmit = function() {
             var userInfo = DummyLoginUtil.requestUserInfo();
             userInfo.email = $("#contactEmail").val();
             userInfo.nickname = $("#contactNickname").val();
@@ -185,7 +187,17 @@
 
             loadEviveNavigation("deviceDone");
             setVisual('accountInfo');
-        });
+        };
+
+        var $contactEmail = $("#contactEmail");
+        var $contactNickname = $("#contactNickname");
+        var $contactMobile = $("#contactMobile");
+
+        $contactEmail.keypress(function(event) { keyEnterEvent(event, function() { $contactNickname.focus() }); });
+        $contactNickname.keypress(function(event) { keyEnterEvent(event, function() { $contactMobile.focus() }); });
+        $contactMobile.keypress(function(event) { keyEnterEvent(event, contactSubmit); });
+
+        $("#contactSubmit").click(contactSubmit);
     }
 </script>
 </html>
