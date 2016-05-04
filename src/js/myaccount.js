@@ -1,5 +1,8 @@
 var DummyLoginUtil = new DummyLoginUtil();
 
+if (!DummyLoginUtil.currentUser())
+    window.location.href = "login.html";
+
 setVisual();
 
 function setVisual() {
