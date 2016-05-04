@@ -73,12 +73,15 @@
                 return localStorage.eviveCurUser;
             }
 
-            DummyLoginUtil.prototype.requestUserInfo = function() {
+            DummyLoginUtil.prototype.requestUserInfo = function(curUser) {
+                if (!curUser)
+                    curUser = this.currentUser();
+
                 var users = JSON.parse(localStorage.eviveUsers);
                 var result = false;
 
                 users.forEach(function(user, index) {
-                    if (user.username == localStorage.eviveCurUser)
+                    if (user.username == curUser)
                         return result = {
                             email: user.email,
                             address: user.address,

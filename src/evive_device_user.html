@@ -184,6 +184,7 @@
             DummyLoginUtil.updateUserInfo(userInfo);
 
             localStorage.deviceSubmitted = $.now();
+            localStorage.deviceUser = DummyLoginUtil.currentUser();
 
             loadEviveNavigation("deviceDone");
             setVisual('accountInfo');

@@ -194,13 +194,8 @@
         localStorage.eviveType = eviveType;
 
     var clear = getUrlParameter('clear');
-    if (clear == 'yes') {
-        removeInfo("deviceTypeObj");
-        removeInfo("deviceBrandObj");
-        removeInfo("deviceModelObj");
-
+    if (clear == 'yes')
         localStorage.removeItem("deviceEditing");
-    }
     else if (clear == "no")
         localStorage.deviceEditing = $.now();
 
