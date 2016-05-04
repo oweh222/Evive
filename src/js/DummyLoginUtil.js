@@ -50,7 +50,7 @@
             * Reset User Info
             */
             DummyLoginUtil.prototype.resetUserInfo = function()  {
-                var admin = new EviveUser("Group4", "cs465","cs465group4@illinois.edu", "1404 Siebel Center", "Group 4", "8888888888");
+                var admin = new EviveUser("Group4", "cs465","cs465group4@illinois.edu", "1404 Siebel Center", "CS 465 Group 4", "8888888888");
                 localStorage.eviveUsers = JSON.stringify([admin]);
             };
 

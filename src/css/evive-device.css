@@ -114,3 +114,7 @@
 .text-placeholder {
     white-space: pre-line;
 }
+
+.invis {
+    display: none;
+}
