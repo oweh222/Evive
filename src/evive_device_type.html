@@ -198,7 +198,7 @@
         localStorage.removeItem("deviceTypeObj");
         localStorage.removeItem("deviceBrandObj");
         localStorage.removeItem("deviceModelObj");
-        localStorage.removeItem("deviceSubmitted");
+        if (eviveType == "give") localStorage.removeItem("deviceSubmitted");
     }
 
     setVisual();
