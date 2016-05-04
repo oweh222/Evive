@@ -16,43 +16,45 @@
              * @param pw input password
              * @return true if un and pw match, false otherwise
              */
-            DummyLoginUtil.prototype.validateUser = function(un, pw)
-            {
-                if (!localStorage.eviveUsers) return false;
+            DummyLoginUtil.prototype.validateUser = function(un, pw) {
+                if (un == "" || pw == "") return false;
 
-                var users = JSON.parse(localStorage.eviveUsers);
-
-                for (var i = 0; i < users.length; ++i)
-                {
-                    if (users[i].username === un)
-                    {
-                        if (users[i].password === pw)
-                        {
-                            return this.logOnUser(users[i]);
+                if (localStorage.eviveUsers) {
+                    var users = JSON.parse(localStorage.eviveUsers);
+                    for (var i = 0; i < users.length; ++i)
+                        if (users[i].username === un) {
+                            if (users[i].password === pw)
+                                return this.logOnUser(users[i]);
+                            else
+                                return false;
                         }
-                    }
                 }
-                return false;
+
+                var newUser = this.registerUser(new EviveUser(un, pw, "", "", "", ""));
+                return this.logOnUser(newUser);
             };
 
             DummyLoginUtil.prototype.registerUser = function(newUser) {
                 var users;
                 if (!localStorage.eviveUsers)
-                    users = JSON.stringify([newUser]);
+                    users = [newUser];
                 else {
                     users = JSON.parse(localStorage.eviveUsers);
                     users.push(newUser);
                 }
                 localStorage.eviveUsers = JSON.stringify(users);
+
+                return newUser;
             };
 
             /**
             * Reset User Info
             */
             DummyLoginUtil.prototype.resetUserInfo = function()  {
-                var admin = new EviveUser("Group4", "cs465","cs465group4@illinois.edu", "1404 Siebel Center", "CS 465 Group 4", "8888888888");
-                localStorage.eviveUsers = JSON.stringify([admin]);
-                return admin;
+                localStorage.removeItem("eviveUsers");
+
+                var user = new EviveUser("Group4", "cs465","cs465group4@illinois.edu", "1404 Siebel Center", "CS 465 Group 4", "8888888888");
+                return this.registerUser(user);
             };
 
             /**

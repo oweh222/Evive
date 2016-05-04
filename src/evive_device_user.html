@@ -45,21 +45,12 @@
         </div>
         <div class="row row-flex">
             <div class="col-xs-4">
-                <div class="row login-form invis" data-type="accountColumn" id="loginForm">
-                    <div class="form-group" id="loginUsernameGroup">
-                        <input type="text" class="form-control login-field" value="" placeholder="Enter your Username" id="loginUsername">
-                    </div>
-                    <div class="form-group" id="loginPasswordGroup">
-                        <input type="password" class="form-control login-field" value="" placeholder="Password" id="loginPassword">
-                    </div>
-                    <a class="btn btn-primary btn-lg btn-block" id="loginSubmit">Log in</a>
-                    <a class="login-link" id="loginLostPassword" href="#">Lost your password?</a>
-                </div>
+                <div class="row invis" data-type="accountColumn" id="loginForm"></div>
                 <div class="row login-form invis" data-type="accountColumn" id="contactForm">
                     <div class="form-group">
                         <p>
-                            <small>Email</small><br/>
-                            <span data-type="Email">&nbsp;</span>
+                            <small>Username</small><br/>
+                            <span data-type="textUsername">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
@@ -69,30 +60,39 @@
                         <p>
                             <small>Contact Information</small>
                         </p>
+                        <input type="text" class="form-control login-field" value="" placeholder="Email" id="contactEmail" title="Email">
+                    </div>
+                    <div class="form-group">
                         <input type="text" class="form-control login-field" value="" placeholder="Nickname" id="contactNickname" title="Nickname">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control login-field" value="" placeholder="Mobile phone number" id="contactMobile" title="Mobile">
+                        <input type="text" class="form-control login-field" value="" placeholder="Mobile phone number" id="contactMobile" title="Mobile phone number">
                     </div>
                     <a class="btn btn-primary btn-lg btn-block" id="contactSubmit">Submit Listing</a>
                 </div>
                 <div class="row login-form invis" data-type="accountColumn" id="accountInfo">
                     <div class="form-group">
                         <p>
+                            <small>Username</small><br/>
+                            <span data-type="textUsername">&nbsp;</span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
                             <small>Email</small><br/>
-                            <span data-type="Email">&nbsp;</span>
+                            <span data-type="textEmail">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
                         <p>
                             <small>Nickname</small><br/>
-                            <span data-type="Nickname">&nbsp;</span>
+                            <span data-type="textNickname">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
                         <p>
                             <small>Mobile phone number</small><br/>
-                            <span data-type="Mobile">&nbsp;</span>
+                            <span data-type="textMobile">&nbsp;</span>
                         </p>
                     </div>
                     <div class="form-group">
@@ -128,11 +128,13 @@
 <script src="js/evive.js"></script>
 <script src="js/evive-device.js"></script>
 <script src="js/DummyLoginUtil.js"></script>
+<script src="js/login-form.js"></script>
 
 <script>
     var DummyLoginUtil = new DummyLoginUtil();
 
     loadEviveNavigation("deviceUser");
+    loadLoginForm(DummyLoginUtil, function() { setVisual(''); });
 
     setVisual('');
     setEvents();
@@ -145,16 +147,18 @@
 
         $("[data-type='accountColumn']").hide();
 
-        if (!DummyLoginUtil.currentUser()) {
+        var user = DummyLoginUtil.currentUser();
+        if (!user) {
             $("#loginForm").show();
             return;
         }
 
         var userInfo = DummyLoginUtil.requestUserInfo();
         var $textTips = $("#textTips");
-        $("[data-type='Email']").text(userInfo.email);
+        $("[data-type='textUsername']").text(user);
         if (stage != 'accountInfo') {
             $textTips.text("And finally, please check your contact information");
+            $("#contactEmail").val(userInfo.email);
             $("#contactNickname").val(userInfo.nickname);
             $("#contactMobile").val(userInfo.mobile);
             $("#contactForm").show();
@@ -162,41 +166,16 @@
         }
 
         $textTips.text("Your have successfully posted a listing on Evive!");
-        $("[data-type='Nickname']").text(userInfo.nickname);
-        $("[data-type='Mobile']").text(userInfo.mobile);
+        $("[data-type='textEmail']").text(userInfo.email);
+        $("[data-type='textNickname']").text(userInfo.nickname);
+        $("[data-type='textMobile']").text(userInfo.mobile);
         $("#accountInfo").show();
     }
 
     function setEvents() {
-        $("#loginSubmit").click(function() {
-            var username = $("#loginUsername").val();
-            var password = $("#loginPassword").val();
-            if (DummyLoginUtil.validateUser(username, password)) {
-                setVisual('');
-            }
-            else {
-                var $loginUsernameGroup = $("#loginUsernameGroup");
-                var $loginPasswordGroup = $("#loginPasswordGroup");
-                $loginUsernameGroup.addClass("has-error");
-                $loginPasswordGroup.addClass("has-error");
-                $loginUsernameGroup.effect("shake");
-                $loginPasswordGroup.effect("shake");
-            }
-        });
-
-        $("#loginLostPassword").click(function() {
-            var user = DummyLoginUtil.resetUserInfo();
-            $("#loginUsername").val(user.username);
-            $("#loginPassword").val(user.password);
-        });
-
-        $("[name='loginLogout']").click(function() {
-            DummyLoginUtil.logOutUser();
-            setVisual('');
-        })
-
         $("#contactSubmit").click(function() {
-            var userInfo = DummyLoginUtil.requestUserInfo();;
+            var userInfo = DummyLoginUtil.requestUserInfo();
+            userInfo.email = $("#contactEmail").val();
             userInfo.nickname = $("#contactNickname").val();
             userInfo.mobile = $("#contactMobile").val();
             DummyLoginUtil.updateUserInfo(userInfo);
