@@ -30,7 +30,7 @@
         </ul>
     </nav>
 <div class="reveal">
-    <div class="slides">
+    <div class="slides" id="eviveMainSlides">
         <section data-background = "img/slides/home.jpg" data-background-transition = "slide"></section>
         <section data-background = "white">
             <h6>Welcome to <span style = "color: darkgreen">Evive</span> </h6>
@@ -68,6 +68,8 @@
 <script src="js/reveal.js"></script>
 <script>
     Reveal.initialize();
+
+    $("#eviveMainSlides").click(function() { Reveal.navigateRight(); });
 
 </script>
 </body>
